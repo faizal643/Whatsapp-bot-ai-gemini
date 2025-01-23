@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const port = 5001;
+const port = 8080;
 
 async function mediaToGenerativePart(media: MessageMedia) {
   return {
