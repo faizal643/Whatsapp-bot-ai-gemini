@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
+import axios from "axios";
 import { Client, LocalAuth, Message, MessageMedia } from "whatsapp-web.js";
-import QRCode from "qrcode";
+import qrcode from "qrcode-terminal";
 import { GoogleGenerativeAI, ChatSession } from "@google/generative-ai";
 import 'dotenv/config';
 
@@ -21,16 +22,13 @@ async function mediaToGenerativePart(media: MessageMedia) {
 const whatsappClient = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: ['--no-sandbox', '--disable-setuid-sandbox'], 
   },
 });
 
 whatsappClient.on("qr", (qr: string) => {
-  // Menghasilkan QR Code dan menyimpannya sebagai gambar PNG
-  QRCode.toFile('./qr.png', qr, { width: 200 }, (err) => {
-    if (err) throw err;
-    console.log("QR code saved to qr.png, scan it.");
-  });
+  qrcode.generate(qr, { small: true });
+  console.log("QR Code received, scan with your phone.");
 });
 
 whatsappClient.on("ready", () => {
@@ -75,10 +73,11 @@ async function run(message: string, senderNumber: string, mediaPart?: any): Prom
     if (mediaPart) {
       prompt.push(mediaPart);
     }
-
+    
     const result = await chat.sendMessage(prompt);
     const response = await result.response;
     const text: string = response.text();
+
 
     if (text) {
       console.log("Generated Text:", text);
