@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const port = 8080;
+const port = 5000;
 
 async function mediaToGenerativePart(media: MessageMedia) {
   return {
@@ -27,7 +27,7 @@ const whatsappClient = new Client({
 });
 
 whatsappClient.on("qr", (qr: string) => {
-  qrcode.generate(qr, { small: true });
+  qrcode.generate(qr, { small: true, margin: 1, width: 8 });
   console.log("QR Code received, scan with your phone.");
 });
 
