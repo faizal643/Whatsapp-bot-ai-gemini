@@ -20,10 +20,7 @@ async function mediaToGenerativePart(media: MessageMedia) {
 }
 
 const whatsappClient = new Client({
-  authStrategy: new LocalAuth({
-    clientId: "my-client-id",
-    localAuthPath: './wwebjs_auth', // Pastikan path sudah benar
-  }),
+  authStrategy: new LocalAuth(),
   puppeteer: {
     args: ['--no-sandbox', '--disable-setuid-sandbox'], 
   },
