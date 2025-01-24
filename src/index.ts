@@ -27,7 +27,7 @@ const whatsappClient = new Client({
 });
 
 whatsappClient.on("qr", (qr: string) => {
-  qrcode.generate(qr, { small: true, margin: 1, width: 8 });
+  qrcode.generate(qr, { small: true });
   console.log("QR Code received, scan with your phone.");
 });
 
@@ -102,3 +102,5 @@ async function sendWhatsAppMessage(text: string, toNumber: string): Promise<void
 }
 
 app.listen(port, () => console.log(`Express app running on port ${port}!`));
+
+Terlalu besar QR nya bisa di perkecil lagi ga
