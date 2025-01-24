@@ -102,5 +102,3 @@ async function sendWhatsAppMessage(text: string, toNumber: string): Promise<void
 }
 
 app.listen(port, () => console.log(`Express app running on port ${port}!`));
-
-Terlalu besar QR nya bisa di perkecil lagi ga
